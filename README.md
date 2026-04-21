@@ -1,43 +1,51 @@
-# AI-Powered CV Screener
+# CV Screener
 
-## Overview
-This project is an AI-powered CV (Curriculum Vitae) screener that utilizes OpenAI's Agents SDK to automate the evaluation of CVs, providing efficiency and accuracy in the recruitment process.
+This project is a CV Screener application that leverages a FastAPI backend with an HTML frontend.
 
-## Features
-- **Automated CV Evaluation**: The screener assesses CVs based on predefined criteria to streamline the recruitment process.
-- **Integration with OpenAI SDK**: Leverages the power of OpenAI's technology for intelligent decision-making.
-- **User-Friendly Interface**: Easy to use, designed for both recruiters and candidates.
+## Installation Instructions
 
-## Installation
-To set up the CV screener, follow these steps:
+### Prerequisites
+- Python 3.8+
+- pip
+
+### Setup Virtual Environment
 1. Clone the repository:
    ```bash
    git clone https://github.com/masabagerald/cv-screener.git
-   ```
-2. Change directory to the project folder:
-   ```bash
    cd cv-screener
    ```
-3. Install the required dependencies:
+
+2. Create a virtual environment:
    ```bash
-   pip install -r requirements.txt
+   python -m venv venv
    ```
 
-## Usage
-1. Run the main application:
+3. Activate the virtual environment:
+   - For Windows:
+     ```bash
+     venv\Scripts\activate
+     ```
+   - For macOS/Linux:
+     ```bash
+     source venv/bin/activate
+     ```
+
+### Install Dependencies
+Run the following command to install the required packages:
+```bash
+pip install -r requirements.txt
+```
+
+### Running the Application
+1. Start the FastAPI server:
    ```bash
-   python app.py
+   uvicorn main:app --reload
    ```
-2. Follow the on-screen instructions to upload and assess CVs.
+
+2. Open your browser and go to `http://127.0.0.1:8000` to view the application.
+
+## Usage Instructions
+- Follow the prompts on the HTML frontend to upload and process CVs.
 
 ## Contributing
-If you wish to contribute, please fork the repository and submit a pull request. Make sure to adhere to the project's coding standards.
-
-## License
-This project is licensed under the MIT License. See the LICENSE file for more details.
-
-## Acknowledgments
-- Thank you to OpenAI for providing the SDK that powers this application.
-
----
-For more information, visit the [project repository](https://github.com/masabagerald/cv-screener).
+Contributions are welcome! Please open an issue or submit a pull request for any enhancements or bug fixes.
