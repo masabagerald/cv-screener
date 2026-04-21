@@ -1,57 +1,43 @@
-# CV Screener
+# AI-Powered CV Screener
 
-## Project Overview
-The CV Screener is an application designed to help recruiters and hiring managers streamline the process of screening resumes and CVs. By leveraging modern technologies, this tool allows for efficient filtering and evaluation of candidates based on their qualifications and experience.
+## Overview
+This project is an AI-powered CV (Curriculum Vitae) screener that utilizes OpenAI's Agents SDK to automate the evaluation of CVs, providing efficiency and accuracy in the recruitment process.
 
 ## Features
-- **Keyword Search**: Search resumes for specific keywords related to skills and experience.
-- **Score Ranking**: Automatically score candidates based on predefined criteria.
-- **User-friendly Interface**: Easy to navigate interface for users of all technical levels.
-- **Customizable Filters**: Allow recruiters to customize filters based on their specific needs.
-- **Reporting**: Generate reports of screened candidates for better decision making.
-
-## Technologies Used
-- **Frontend**: React.js
-- **Backend**: Node.js, Express
-- **Database**: MongoDB
-- **Deployment**: Heroku
+- **Automated CV Evaluation**: The screener assesses CVs based on predefined criteria to streamline the recruitment process.
+- **Integration with OpenAI SDK**: Leverages the power of OpenAI's technology for intelligent decision-making.
+- **User-Friendly Interface**: Easy to use, designed for both recruiters and candidates.
 
 ## Installation
+To set up the CV screener, follow these steps:
 1. Clone the repository:
    ```bash
    git clone https://github.com/masabagerald/cv-screener.git
    ```
-2. Navigate to the project directory:
+2. Change directory to the project folder:
    ```bash
    cd cv-screener
    ```
 3. Install the required dependencies:
    ```bash
-   npm install
-   ```
-4. Start the application:
-   ```bash
-   npm start
+   pip install -r requirements.txt
    ```
 
 ## Usage
-To use the CV Screener, simply upload a CV or resume in PDF or Word format. Use the search feature to find candidates that match your criteria. Review the scores and rankings to identify the best fits for your job openings.
+1. Run the main application:
+   ```bash
+   python app.py
+   ```
+2. Follow the on-screen instructions to upload and assess CVs.
 
 ## Contributing
-Contributions are welcome! Please follow these steps:
-1. Fork the repository.
-2. Create a new branch for your feature or bug fix.
-3. Commit your changes.
-4. Push to the branch.
-5. Create a pull request.
+If you wish to contribute, please fork the repository and submit a pull request. Make sure to adhere to the project's coding standards.
 
 ## License
-This project is licensed under the MIT License.
+This project is licensed under the MIT License. See the LICENSE file for more details.
 
-## Contact
-For any inquiries, please reach out to masabagerald@example.com.
+## Acknowledgments
+- Thank you to OpenAI for providing the SDK that powers this application.
 
 ---
-
-## Current Date and Time
-- **Generated On**: 2026-04-21 21:40:46 UTC
+For more information, visit the [project repository](https://github.com/masabagerald/cv-screener).
