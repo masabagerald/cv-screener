@@ -1,14 +1,163 @@
-## Installation/Setup
+#                                                            
+  
+  
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+   AI-Powered CV Screener
 
-To create and configure the `.env` file with your `OPENAI_API_KEY`, follow these steps:
+## Overview
+AI-Powered CV Screener is a recruitment automation tool that evaluates candidate CVs against job descriptions using OpenAI’s Agents SDK. It enforces **strict, evidence-based screening** to ensure objective, consistent, and high-quality hiring decisions.
 
-1. Create a new file named `.env` in the root directory of the project.
-2. Add the following line, replacing `your_openai_api_key_here` with your actual OpenAI API key:
+Built with FastAPI, the system enables recruiters to efficiently parse, score, and shortlist candidates with minimal manual effort.
 
-   ```env
-   OPENAI_API_KEY=your_openai_api_key_here
-   ```
+---
 
-3. Save the file and ensure it is included in your project directory before running the application.
+## Key Features
+- **Automated CV Evaluation**
+  - Extracts and analyzes CV and cover letter content
+  - Matches candidates against job requirements
 
-You can now run the app after setting up your environment.
+- **Strict AI Scoring Engine**
+  - No assumptions — only proven evidence is considered
+  - Scores:
+    - Skills match
+    - Experience relevance
+    - Education fit
+    - Communication clarity
+    - Cover letter quality
+
+- **Requirement Validation**
+  - Each requirement marked as:
+    - Met / Partially Met / Not Met
+  - Missing evidence is flagged
+
+- **Decision Support**
+  - Outputs:
+    - Shortlist
+    - Consider
+    - Reject
+
+- **FastAPI Backend**
+  - Lightweight and scalable
+  - Easy API integration
+
+---
+
+## Tech Stack
+- **Backend:** FastAPI  
+- **AI Engine:** OpenAI Agents SDK  
+- **Language:** Python  
+- **ORM/Database:** SQLAlchemy  
+- **Frontend (Optional):** HTML, CSS, JavaScript  
+
+---
+
+## Installation
+
+### Prerequisites
+- Python 3.9 or higher  
+- pip  
+- Virtual environment tool (venv recommended)  
+
+### Setup Steps
+1. Clone the repository and navigate into the project directory  
+2. Create and activate a virtual environment  
+3. Install dependencies from `requirements.txt`  
+4. Create a `.env` file in the project root  
+
+### Environment Variables
+Add the following to your `.env` file:
+
+```env
+OPENAI_API_KEY=your_openai_api_key_here
+
+cv-screener/
+│── app.py
+│── requirements.txt
+│── agents/
+│── services/
+│── models/
+│── utils/
+│── templates/
+│── static/
+
