@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CV Screener</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:system-ui,sans-serif;background:#f5f5f1;color:#1a1a1a;min-height:100vh}
+    .container{max-width:860px;margin:0 auto;padding:2rem 1.5rem}
+    h1{font-size:1.5rem;font-weight:600;margin-bottom:.25rem}
+    .subtitle{color:#666;font-size:.9rem;margin-bottom:2rem}
+
+    .card{background:#fff;border-radius:12px;padding:1.5rem;margin-bottom:1rem;border:0.5px solid #e0e0da}
+    .card h2{font-size:.85rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#888;margin-bottom:.75rem}
+    textarea{width:100%;min-height:140px;border:1px solid #ddd;border-radius:8px;padding:.75rem;font-size:.9rem;font-family:inherit;resize:vertical}
+    textarea:focus{outline:none;border-color:#aaa}
+    .upload-zone{border:1.5px dashed #ccc;border-radius:8px;padding:1.5rem;text-align:center;cursor:pointer;transition:border-color .2s}
+    .upload-zone:hover{border-color:#888}
+    .upload-zone input{display:none}
+    .upload-zone label{cursor:pointer;font-size:.9rem;color:#555}
+    .file-list{margin-top:.75rem;display:flex;flex-wrap:wrap;gap:.4rem}
+    .file-tag{background:#f0f0eb;border-radius:20px;padding:3px 10px;font-size:.78rem;color:#444}
+    .btn{display:inline-block;padding:.65rem 1.75rem;background:#1a1a1a;color:#fff;border:none;border-radius:8px;font-size:.9rem;cursor:pointer;transition:opacity .2s;margin-top:1rem}
+    .btn:hover{opacity:.8}
+    .btn:disabled{opacity:.4;cursor:not-allowed}
+    .spinner{display:none;text-align:center;color:#666;font-size:.9rem;padding:2rem}
+    .spinner.active{display:block}
+
+    .results{display:none;margin-top:1.5rem}
+    .results.active{display:block}
+    .shortlist-table{width:100%;border-collapse:collapse;font-size:.88rem}
+    .shortlist-table th{text-align:left;padding:.5rem .75rem;font-weight:500;font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;color:#888;border-bottom:1px solid #eee}
+    .shortlist-table td{padding:.6rem .75rem;border-bottom:.5px solid #f0f0eb;vertical-align:middle}
+    .shortlist-table tr:hover{background:#fafaf7}
+    .rank{font-weight:600;color:#aaa;width:28px}
+    .score-pill{display:inline-block;padding:2px 9px;border-radius:20px;font-size:.78rem;font-weight:500}
+    .score-high{background:#d4f0e0;color:#1a6b3a}
+    .score-mid{background:#fef3cd;color:#7a5200}
+    .score-low{background:#fde0e0;color:#8b1a1a}
+    .rec-badge{display:inline-block;padding:2px 9px;border-radius:20px;font-size:.76rem;font-weight:500}
+    .rec-shortlist{background:#d4f0e0;color:#1a6b3a}
+    .rec-consider{background:#fef3cd;color:#7a5200}
+    .rec-reject{background:#fde0e0;color:#8b1a1a}
+    .expand-btn{background:none;border:none;color:#378ADD;font-size:.82rem;cursor:pointer;padding:0}
+
+    .detail-panel{display:none;background:#fafaf7;border-radius:8px;padding:1.25rem;margin:.5rem 0 1rem;font-size:.88rem}
+    .detail-panel.open{display:block}
+    .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    .detail-section h4{font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#888;margin-bottom:.5rem}
+    .bar-row{display:flex;align-items:center;gap:8px;margin-bottom:.4rem}
+    .bar-label{width:170px;font-size:.8rem;color:#555;flex-shrink:0}
+    .bar-wrap{flex:1;height:5px;background:#eee;border-radius:3px}
+    .bar{height:5px;border-radius:3px;background:#1a1a1a}
+    .bar-val{font-size:.8rem;color:#888;width:24px;text-align:right}
+    .list-item{display:flex;gap:6px;margin-bottom:.35rem;line-height:1.5}
+    .dot-green{color:#1a6b3a;flex-shrink:0}
+    .dot-red{color:#8b1a1a;flex-shrink:0}
+    .summary-text{font-size:.85rem;color:#555;line-height:1.6;margin-top:.75rem;grid-column:1/-1}
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>CV Screener</h1>
+  <p class="subtitle">Paste the job description, upload CVs (and optionally cover letters), and the agent reviews each candidate in parallel.</p>
+
+  <div class="card">
+    <h2>Job description</h2>
+    <textarea id="jd" placeholder="Paste the full job description here — role, responsibilities, requirements, nice-to-haves..."></textarea>
+  </div>
+
+  <div class="card">
+    <h2>CVs / Resumes <span style="font-weight:400;color:#aaa">(PDF, required)</span></h2>
+    <div class="upload-zone" onclick="document.getElementById('cv-input').click()">
+      <label>Click to select one or more CV PDFs</label>
+      <input type="file" id="cv-input" accept=".pdf" multiple onchange="updateFileList('cv-input','cv-list')">
+    </div>
+    <div class="file-list" id="cv-list"></div>
+  </div>
+
+  <div class="card">
+    <h2>Cover letters <span style="font-weight:400;color:#aaa">(PDF, optional)</span></h2>
+    <p style="font-size:.82rem;color:#888;margin-bottom:.75rem">Name each cover letter to match its CV — e.g. <code>john_cv.pdf</code> + <code>john_cl.pdf</code> — and they'll be automatically paired.</p>
+    <div class="upload-zone" onclick="document.getElementById('cl-input').click()">
+      <label>Click to select cover letter PDFs</label>
+      <input type="file" id="cl-input" accept=".pdf" multiple onchange="updateFileList('cl-input','cl-list')">
+    </div>
+    <div class="file-list" id="cl-list"></div>
+  </div>
+
+  <button class="btn" id="submit-btn" onclick="submitScreening()">Screen candidates</button>
+
+  <div class="spinner" id="spinner">
+    Agents are reading and scoring each candidate in parallel — allow 30–90 seconds depending on how many you uploaded.
+  </div>
+
+  <div class="results" id="results">
+    <div class="card">
+      <h2>Ranked shortlist</h2>
+      <table class="shortlist-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Candidate</th>
+            <th>Score</th>
+            <th>Recommendation</th>
+            <th>Cover letter</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="shortlist-body"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+  function updateFileList(inputId, listId) {
+    const files = document.getElementById(inputId).files;
+    const list = document.getElementById(listId);
+    list.innerHTML = '';
+    for (const f of files) {
+      const tag = document.createElement('span');
+      tag.className = 'file-tag';
+      tag.textContent = f.name;
+      list.appendChild(tag);
+    }
+  }
+
+  function scoreClass(s) {
+    if (s >= 7) return 'score-high';
+    if (s >= 5) return 'score-mid';
+    return 'score-low';
+  }
+
+  function recClass(r) {
+    if (r === 'Shortlist') return 'rec-shortlist';
+    if (r === 'Consider') return 'rec-consider';
+    return 'rec-reject';
+  }
+
+  function toggleDetail(id) {
+    document.getElementById(id).classList.toggle('open');
+  }
+
+  function renderResults(candidates) {
+    const tbody = document.getElementById('shortlist-body');
+    tbody.innerHTML = '';
+
+    candidates.forEach((c, i) => {
+      const detailId = `detail-${i}`;
+
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td class="rank">${i + 1}</td>
+        <td><strong>${c.candidate_name}</strong></td>
+        <td><span class="score-pill ${scoreClass(c.overall_score)}">${c.overall_score}/10</span></td>
+        <td><span class="rec-badge ${recClass(c.recommendation)}">${c.recommendation}</span></td>
+        <td style="color:${c.has_cover_letter ? '#1a6b3a' : '#aaa'};font-size:.82rem">${c.has_cover_letter ? 'Yes' : 'No'}</td>
+        <td><button class="expand-btn" onclick="toggleDetail('${detailId}')">View report</button></td>
+      `;
+      tbody.appendChild(row);
+
+      const detailRow = document.createElement('tr');
+      detailRow.innerHTML = `<td colspan="6" style="padding:0">
+        <div class="detail-panel" id="${detailId}">
+          <div class="detail-grid">
+            <div class="detail-section">
+              <h4>Criterion scores</h4>
+              ${c.scores.map(s => `
+                <div class="bar-row">
+                  <span class="bar-label">${s.criterion}</span>
+                  <div class="bar-wrap"><div class="bar" style="width:${s.score * 10}%"></div></div>
+                  <span class="bar-val">${s.score}</span>
+                </div>
+                <div style="font-size:.76rem;color:#999;margin-bottom:.5rem;margin-left:178px">${s.justification}</div>
+              `).join('')}
+            </div>
+            <div class="detail-section">
+              <h4>Strengths</h4>
+              ${c.strengths.map(s => `<div class="list-item"><span class="dot-green">+</span><span>${s}</span></div>`).join('')}
+              <h4 style="margin-top:.75rem">Concerns</h4>
+              ${c.concerns.length
+                ? c.concerns.map(s => `<div class="list-item"><span class="dot-red">-</span><span>${s}</span></div>`).join('')
+                : '<div style="color:#aaa;font-size:.82rem">No significant concerns noted.</div>'}
+            </div>
+            <div class="summary-text">
+              <strong style="font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;color:#888">JD fit summary</strong><br>
+              ${c.jd_match_summary}
+            </div>
+          </div>
+        </div>
+      </td>`;
+      tbody.appendChild(detailRow);
+    });
+
+    document.getElementById('results').classList.add('active');
+    document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  async function submitScreening() {
+    const jd = document.getElementById('jd').value.trim();
+    const cvFiles = document.getElementById('cv-input').files;
+    const clFiles = document.getElementById('cl-input').files;
+
+    if (!jd) { alert('Please paste a job description.'); return; }
+    if (!cvFiles.length) { alert('Please upload at least one CV.'); return; }
+
+    document.getElementById('spinner').classList.add('active');
+    document.getElementById('results').classList.remove('active');
+    document.getElementById('submit-btn').disabled = true;
+
+    const form = new FormData();
+    form.append('job_description', jd);
+    for (const f of cvFiles) form.append('cvs', f);
+    for (const f of clFiles) form.append('cover_letters', f);
+
+    try {
+      const res = await fetch('/screen', { method: 'POST', body: form });
+      const data = await res.json();
+      if (data.error) { alert('Error: ' + data.error); return; }
+      renderResults(data);
+    } catch (e) {
+      alert('Request failed: ' + e.message);
+    } finally {
+      document.getElementById('spinner').classList.remove('active');
+      document.getElementById('submit-btn').disabled = false;
+    }
+  }
+</script>
+</body>
+</html>
