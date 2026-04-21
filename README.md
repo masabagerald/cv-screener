@@ -1,51 +1,14 @@
-# CV Screener
+## Installation/Setup
 
-This project is a CV Screener application that leverages a FastAPI backend with an HTML frontend.
+To create and configure the `.env` file with your `OPENAI_API_KEY`, follow these steps:
 
-## Installation Instructions
+1. Create a new file named `.env` in the root directory of the project.
+2. Add the following line, replacing `your_openai_api_key_here` with your actual OpenAI API key:
 
-### Prerequisites
-- Python 3.8+
-- pip
-
-### Setup Virtual Environment
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/masabagerald/cv-screener.git
-   cd cv-screener
+   ```env
+   OPENAI_API_KEY=your_openai_api_key_here
    ```
 
-2. Create a virtual environment:
-   ```bash
-   python -m venv venv
-   ```
+3. Save the file and ensure it is included in your project directory before running the application.
 
-3. Activate the virtual environment:
-   - For Windows:
-     ```bash
-     venv\Scripts\activate
-     ```
-   - For macOS/Linux:
-     ```bash
-     source venv/bin/activate
-     ```
-
-### Install Dependencies
-Run the following command to install the required packages:
-```bash
-pip install -r requirements.txt
-```
-
-### Running the Application
-1. Start the FastAPI server:
-   ```bash
-   uvicorn main:app --reload
-   ```
-
-2. Open your browser and go to `http://127.0.0.1:8000` to view the application.
-
-## Usage Instructions
-- Follow the prompts on the HTML frontend to upload and process CVs.
-
-## Contributing
-Contributions are welcome! Please open an issue or submit a pull request for any enhancements or bug fixes.
+You can now run the app after setting up your environment.
